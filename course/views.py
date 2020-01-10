@@ -3,7 +3,7 @@ from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.conf import settings
-import numpy as np
+from random import choices
 
 from .models import Course, Student
 from .forms import CourseForm
@@ -92,8 +92,9 @@ def add_attempt_to_all(course):
 
 def select_student(students):
     attempts = [x.attempts for x in students]
-    attempts = attempts / np.sum(attempts)
-    return np.random.choice(students, 1, p=attempts)[0]
+    attempt_sum = sum(attempts)
+    attempts = [x / attempt_sum for x in attempts]
+    return choices(students, k=1, weights=attempts)[0]
 
 def refused_button(request):
     return request.method == 'POST' and 'refused' in request.POST
