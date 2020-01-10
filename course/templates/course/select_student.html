@@ -1,0 +1,13 @@
+<h1> {{selected.name}} selected </h1>
+<form method="POST" >
+    {% csrf_token %}
+    <p> Assists </p>
+    <ul>
+        {% for stud in students %}
+        <li>{{stud}}<input type="checkbox" name="assists[]"  value="{{stud.id}}" ></li>
+        {% endfor %}
+    </ul>
+    <button type="submit"  name="refused"> Refused </button>
+    <button type="submit"  name="completed"> Completed </button>
+</form>
+<a href="{{course.get_absolute_url}}">back to list</a>

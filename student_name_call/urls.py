@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import path, include # new
+from pages.views import homepage_view, signup_view
+from course.views import list_courses_view, course_view, edit_students_view, select_student_view
+from course.views import edit_courses_view
 
 urlpatterns = [
+    path('', homepage_view, name='home'),
     path('admin/', admin.site.urls),
+    path('signup/', signup_view, name='signup'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/profile/', list_courses_view, name='courses'),
+    path('accounts/profile/edit', edit_courses_view, name='edit_courses_view'),
+    path('courses/<course_id>/', course_view, name='course_view'),
+    path('select/<student_id>', select_student_view, name='select_student_view'),
+    path('courses/<course_id>/edit', edit_students_view, name='edit_students'),
 ]

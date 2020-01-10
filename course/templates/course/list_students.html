@@ -1,0 +1,12 @@
+<h1> Section {{course.course_id}} </h1>
+<ul>
+    {% for student in students %}
+    <li>{{student.name}} {{student.attempts}} </li>
+    {% endfor %}
+</ul>
+<form method="POST" >
+    {% csrf_token %}
+    <button type="submit"  name="select_student"> Select Student </button>
+</form>
+<p><a href="{% url 'edit_students' course_id=course.course_id %}">Edit</a>
+    <p><a href="{% url 'courses' %}">Return to courses</a>

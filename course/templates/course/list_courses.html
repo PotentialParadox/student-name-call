@@ -1,0 +1,9 @@
+<h1> Course Listings for {{ user.username | title }} </h1>
+<ul>
+{% for course in courses %}
+    <li><a href="{{course.get_absolute_url}}">{{course}}</li>
+{% endfor %}
+</ul>
+<p><a href="{% url 'edit_courses_view' %}">Edit Courses</a>
+<p><a href="{% url 'logout' %}">Logout</a>
+
