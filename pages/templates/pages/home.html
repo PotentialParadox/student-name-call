@@ -1,10 +1,28 @@
-<h1> Welcome to Student-Name-Call! </h1>
+{% extends 'base.html' %}
+{% block content %}
 {% if user.is_authenticated %}
-Hi {{ user.username|title }}! Your budget info is the following:
-<p><a href="{% url 'courses' %}">courses</a></p>
-<p><a href="{% url 'logout' %}">logout</a></p>
+<div class="row">
+    <div class="col">
+    Hi {{ user.username|title }}! Wecome to student name call!
+    </div>
+</div>
+<div class="row row-content">
+    <div class="col-sm-6">
+        <a href="{% url 'courses' %}" class="btn btn-block btn-primary">View Courses</a>
+    </div>
+    <div class="col-sm-6">
+        <a href="{% url 'logout' %}" class="btn btn-block btn-danger">Logout</a>
+    </div>
+</div>
 {% else %}
-<p> You are not logged in</p>
-<a href="{% url 'login' %}" >login</a>
-<a href="{% url 'signup' %}">signup</a>
+<div class="row row-content">
+    <div class="col-sm-6">
+        <a href="{% url 'login' %}" class="btn btn-block btn-primary">Login</a>
+    </div>
+    <div class="col-sm-6">
+        <a href="{% url 'signup' %}" class="btn btn-block btn-warning">Signup</a>
+    </div>
+</div>
 {% endif %}
+{% endblock %}
+

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         {% load static %}
-        <link rel="stylesheet" type="text/css"  href="{% static 'course/style.css' %}">
+        <link rel="stylesheet" type="text/css"  href="{% static 'pages/style.css' %}">
         {% block head %}
         {% endblock %}
     </head>
@@ -30,19 +30,21 @@
                 </div>
             </div>
         </nav>
-        <div class="jumbotron" >
-            <div class="container">
-                <h1>
-                {% block title %}
-                    SNC
-                {% endblock %}
-                </h1>
-                <p>
-                    {% block description %}
-                    Choose the students that need the help! Motivate them to engage!
+        <div class='d-none d-sm-block'>
+            <div class="jumbotron" >
+                <div class="container">
+                    <h1>
+                    {% block title %}
+                        Student-Name-Call
                     {% endblock %}
-                </p>
+                    </h1>
+                    <p>
+                        {% block description %}
+                        Choose the students that need the help! Motivate them to engage!
+                        {% endblock %}
+                    </p>
 
+                </div>
             </div>
         </div>
         <div class="container">

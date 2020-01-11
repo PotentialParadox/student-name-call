@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Course Listings for {{ user.username | title }}</h2>
-<ul>
-{% for course in courses %}
-    <li><a href="{{course.get_absolute_url}}">{{course}}</li>
-{% endfor %}
-</ul>
-<p><a href="{% url 'edit_courses_view' %}">Edit Courses</a>
-<p><a href="{% url 'logout' %}">Logout</a>
+
+<div class="row row-content">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-header bg-primary text-white" id="login">{{user.username | title}}'s Courses</h3>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for course in courses %}
+                    <a href="{{course.get_absolute_url}}" class="list-group-item list-group-item-action">{{course}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <a href="{% url 'edit_courses_view' %}" class="btn btn-block btn-secondary">Edit Courses</a>
+    </div>
+    <div class="col-sm-6">
+        <a href="{% url 'logout' %}" class="btn btn-block btn-danger">Logout</a>
+    </div>
+</div>
+
 {% endblock %}
 
