@@ -28,8 +28,15 @@
                     </li>
                     {% endfor %}
                 </div>
+                <form method="POST" >
+                    {% csrf_token %}
+                    <button type="submit"  name="select_student" class="btn btn-block btn-success"> Select Student </button>
+                </form>
             </div>
         </div>
+    </div>
+
+    <div class="col-12">
     </div>
 
     <div class="row row-content">
