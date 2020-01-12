@@ -1,14 +1,39 @@
-<h1> Section {{course.course_id}} </h1>
-<form class="form-horizontal" action="" method="POST">
-    {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form_item in formset %}
-    <div class="row form-row spacer"
-        <div class="col-2">
-            <label>{{form_item.as_table}}</label>
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST">
+{% csrf_token %}
+{{ formset.management_form }}
+<div class="row row-content">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-header bg-primary text-white" id="login">{{user.username | title}}'s Courses</h3>
+            <div class="card-body">
+                {% for form_item in formset %}
+                    {{ form_item.non_field_errors }}
+                    {% for hidden_field in form_item.hidden_fields %}
+                        {{ hidden_field.errors }}
+                        {{ hidden_field }}
+                    {% endfor %}
+
+                <div class="row edit-content">
+                    {% for field in form_item.visible_fields %}
+                <div class="col-sm-6">
+                        {{field.label}}
+                </div>
+                <div class="col-sm-6">
+                        {{field}}
+                </div>
+                    {% endfor %}
+                </div>
+
+                {% endfor %}
+            </div>
+            <input type='submit' value="Save" />
+            <a href="{{course.get_absolute_url}}">back to list</a>
         </div>
     </div>
-    {% endfor %}
-    <input type='submit' value="Save" />
+</div>
 </form>
-<a href="{{course.get_absolute_url}}">back to list</a>
+
+{% endblock %}
