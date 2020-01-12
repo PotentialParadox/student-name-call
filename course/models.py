@@ -24,9 +24,9 @@ class Course(models.Model):
 
 class Student(models.Model):
     name = models.CharField(max_length=20)
-    attempts = models.IntegerField(default=0, validators=[MaxValueValidator(1000), MinValueValidator(1)])
+    attempts = models.IntegerField(default=0, validators=[MaxValueValidator(1000), MinValueValidator(0)])
     assists = models.IntegerField(default=0, validators=[MaxValueValidator(1000), MinValueValidator(0)])
-    weight = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(0)])
+    weight = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
