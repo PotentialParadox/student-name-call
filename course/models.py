@@ -21,13 +21,37 @@ class Course(models.Model):
         return reverse('course_view', args=[str(self.course_id)])
 
 
+
 class Student(models.Model):
     name = models.CharField(max_length=20)
-    attempts = models.IntegerField(default=10, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    attempts = models.IntegerField(default=0, validators=[MaxValueValidator(1000), MinValueValidator(1)])
+    assists = models.IntegerField(default=0, validators=[MaxValueValidator(1000), MinValueValidator(0)])
+    weight = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(0)])
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
     )
+
+    def add_assist(self):
+        self.assists += 1
+        self.save()
+
+    def add_attempt(self):
+        self.attempts += 1
+        self.save()
+
+    def adjust_weight(self, amount):
+        self.weight += amount
+        self.save()
+        if self.weight < 1:
+            diff = 1 - self.weight
+            self.adjust_all_student_weights(diff)
+
+    def adjust_all_student_weights(self, amount):
+        course = self.course
+        students = Student.objects.filter(course=course)
+        for student in students:
+            student.adjust_weight(amount)
 
     class Meta:
         ordering = ['name']

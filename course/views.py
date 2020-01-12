@@ -51,11 +51,10 @@ def select_student_view(request, student_id):
     check_instructor(user, course)
     if request.method == 'POST':
         if refused_button(request):
-            adjust_student_attempts(student, 1)
+            student.adjust_weight(1)
         if completed_button(request):
-            adjust_student_attempts(student, -1)
-        if student.attempts == 0:
-            add_attempt_to_all(course)
+            student.add_attempt()
+            student.adjust_weight(-1)
         apply_assists(request)
         return redirect('course_view', course_id=course.course_id)
     context = {
@@ -65,23 +64,17 @@ def select_student_view(request, student_id):
         }
     return render(request, 'course/select_student.html', context)
 
-def adjust_student_attempts(student, amount):
-    student.attempts += amount
-    student.save()
-    if student.attempts < 1:
-        diff = 1 - student.attempts
-        course = student.course
-        adjust_all_student_attempts(course, diff)
 
 def apply_assists(request):
     for student_id in request.POST.getlist('assists[]'):
         student = Student.objects.get(pk=student_id)
-        adjust_student_attempts(student, -1)
+        student.add_assist()
+        student.adjust_weight(-1)
 
-def adjust_all_student_attempts(course, amount):
+def adjust_all_student_weights(course, amount):
     students = Student.objects.filter(course=course)
     for student in students:
-        student.attempts += amount
+        student.weight += amount
         student.save()
 
 def add_attempt_to_all(course):
@@ -131,7 +124,7 @@ def edit_students_view(request, course_id):
     course = Course.objects.get(course_id=course_id)
     user = request.user
     check_instructor(request, course)
-    StudentFormset = inlineformset_factory(Course, Student, fields=('name', 'attempts',), extra=1)
+    StudentFormset = inlineformset_factory(Course, Student, fields=('name', 'attempts', 'assists'), extra=1)
     if request.method == 'POST':
         formset = StudentFormset(request.POST, instance=course)
         if formset.is_valid():

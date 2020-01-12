@@ -1,13 +1,43 @@
-<h1> {{selected.name}} selected </h1>
+{% extends 'base.html' %}
+{% block content %}
+
 <form method="POST" >
     {% csrf_token %}
-    <p> Assists </p>
-    <ul>
-        {% for stud in students %}
-        <li>{{stud}}<input type="checkbox" name="assists[]"  value="{{stud.id}}" ></li>
-        {% endfor %}
-    </ul>
-    <button type="submit"  name="refused"> Refused </button>
-    <button type="submit"  name="completed"> Completed </button>
+    <div class="row row-content">
+        <div class="col-12">
+            <div class="card">
+                <h3 class="card-header bg-primary text-white" id="login">  {{selected.name}} selected  </h3>
+                <div class="card-body">
+                    <h4>
+                        Assists
+                    </h4>
+                    <div class="btn-group-toggle" data-toggle="buttons">
+                        {% for stud in students %}
+                        <label class="btn btn-block btn-outline-secondary">
+                            <input type="checkbox" name="assists[]"  value="{{stud.id}}" >{{stud}}
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <button type="submit"  name="completed" class="btn btn-block btn-success"> Completed </button>
+        </div>
+        <div class="col-6">
+            <button type="submit"  name="refused" class="btn btn-block btn-danger"> Refused </button>
+        </div>
 </form>
-<a href="{{course.get_absolute_url}}">back to list</a>
+
+<div class="row row-content">
+    <div class="col-sm-12">
+        <a href="{{course.get_absolute_url}}">
+            Return to Course
+        </a>
+    </div>
+</div>
+
+
+    </div>
+{% endblock %}
