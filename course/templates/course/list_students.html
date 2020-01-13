@@ -5,28 +5,29 @@
         <div class="card">
             <h3 class="card-header bg-primary text-white" id="login"> Section {{course.course_id}} </h3>
             <div class="card-body">
-                <form method="POST" >
-                    {% csrf_token %}
-                    <button type="submit"  name="select_student" class="btn btn-block btn-success"> Select Student </button>
-                </form>
                 <p class="text-right">
                 <span class="badge badge-primary badge-pill">Attempts</span>
                 <span class="badge badge-info">Assists</span>
                 </p>
-                <div class="list-group">
-                    {% for student in students %}
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-6">
-                            {{student}}
-                            </div>
-                            <div class="col-6 text-right">
-                                <span class="badge badge-primary badge-pill">{{student.attempts}}</span>
-                                <span class="badge badge-info">{{student.assists}}</span>
-                            </div>
+                <div id="accordion">
+                    <button data-toggle="collapse" data-target="#students" class="btn btn-primary">Students</button>
+                    <div role="tabpanel" class="collapse" id="students" data-parent="#accordion">
+                        <div class="list-group">
+                            {% for student in students %}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-6">
+                                        {{student}}
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <span class="badge badge-primary badge-pill">{{student.attempts}}</span>
+                                        <span class="badge badge-info">{{student.assists}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
                         </div>
-                    </li>
-                    {% endfor %}
+                    </div>
                 </div>
                 <form method="POST" >
                     {% csrf_token %}
