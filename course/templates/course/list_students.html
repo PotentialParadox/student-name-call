@@ -5,13 +5,13 @@
         <div class="card">
             <h3 class="card-header bg-primary text-white" id="login"> Section {{course.course_id}} </h3>
             <div class="card-body">
-                <p class="text-right">
-                <span class="badge badge-primary badge-pill">Attempts</span>
-                <span class="badge badge-info">Assists</span>
-                </p>
                 <div id="accordion">
                     <button data-toggle="collapse" data-target="#students" class="btn btn-primary">Students</button>
                     <div role="tabpanel" class="collapse" id="students" data-parent="#accordion">
+                        <p class="text-right">
+                            <span class="badge badge-primary badge-pill">Attempts</span>
+                            <span class="badge badge-info">Assists</span>
+                        </p>
                         <div class="list-group">
                             {% for student in students %}
                             <li class="list-group-item">
