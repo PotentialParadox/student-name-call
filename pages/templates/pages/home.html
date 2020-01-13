@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class='d-none d-sm-block'>
+    <div class="jumbotron" >
+        <div class="container">
+            <h1>
+                {% block title %}
+                Student-Name-Call
+                {% endblock %}
+            </h1>
+            <p>
+                {% block description %}
+                Choose the students that need the help! Motivate them to engage!
+                {% endblock %}
+            </p>
+
+        </div>
+    </div>
+</div>
 {% if user.is_authenticated %}
 <div class="row">
     <div class="col">
