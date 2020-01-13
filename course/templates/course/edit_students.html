@@ -7,32 +7,34 @@
 <div class="row row-content">
     <div class="col-12">
         <div class="card">
-            <h3 class="card-header bg-primary text-white" id="login">{{user.username | title}}'s Courses</h3>
+            <h3 class="card-header bg-primary text-white" id="login">Students in {{course.course_id}}</h3>
             <div class="card-body">
-                {% for form_item in formset %}
+                <div class="form-row">
+                    {% for form_item in formset %}
                     {{ form_item.non_field_errors }}
                     {% for hidden_field in form_item.hidden_fields %}
-                        {{ hidden_field.errors }}
-                        {{ hidden_field }}
+                    {{ hidden_field.errors }}
+                    {{ hidden_field }}
                     {% endfor %}
 
-                <div class="row edit-content">
-                    {% for field in form_item.visible_fields %}
-                <div class="col-sm-6">
-                        {{field.label}}
-                </div>
-                <div class="col-sm-6">
-                        {{field}}
-                </div>
-                    {% endfor %}
-                </div>
+                        {% for field in form_item.visible_fields %}
+                        <div class="form-group col-sm-3">
+                            {{field.label}}
+                            {{field}}
+                        </div>
+                        {% endfor %}
 
-                {% endfor %}
+                    {% endfor %}
+                </class>
             </div>
-            <input type='submit' value="Save" />
-            <a href="{{course.get_absolute_url}}">back to list</a>
+            <div class="row">
+                <div class="ml-auto">
+                    <input type='submit' value="Save" />
+                </div>
+            </div>
         </div>
     </div>
+    <a href="{{course.get_absolute_url}}">back to list</a>
 </div>
 </form>
 
