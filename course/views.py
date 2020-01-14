@@ -84,10 +84,15 @@ def add_attempt_to_all(course):
         student.save()
 
 def select_student(students):
-    weights = [x.weight for x in students]
+    raw_values = [x.assists + x.attempts + 1 for x in students]
+    weights = convert_raw_values_to_weights(raw_values)
     weight_sum = sum(weights)
     weights = [x / weight_sum for x in weights]
+    print(weights)
     return choices(students, k=1, weights=weights)[0]
+
+def convert_raw_values_to_weights(raw_values):
+    return [1/x for x in raw_values]
 
 def refused_button(request):
     return request.method == 'POST' and 'refused' in request.POST
